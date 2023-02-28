@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Background Layers</title>
+		<style>
+			canvas { border: solid 1px #949791; }
+		</style>
+	</head>
+	<body>
+		<canvas id="cc"></canvas>
+		<script>
+			window.onload = function() {
+				canvas = document.getElementById("cc");
+				context = canvas.getContext("2d");
+				canvas.width = 200;
+				canvas.height = 200;
+				img = new Image();
+				img.src = "sheet.png";
+				bg = new Bg(0, .077);
+				bg2 = new Bg(200, .4);
+				bg3 = new Bg(400, 1.3);
+				bg4 = new Bg(800, 2.6);
+				bg5 = new Bg(600, 5.2);
+				requestAnimationFrame(draw);
+			}
+			function draw() {
+				requestAnimationFrame(draw);
+				bg.draw();
+				bg2.draw();
+				bg3.draw();
+				bg4.draw();
+				bg5.draw();
+			}
+			function Bg(sy, vx) {
+				this.sx = 0;
+				this.sy = sy;
+				this.x = 0;
+				this.y = 0;
+				this.height = 200;
+				this.width = 300;
+				this.vx = vx;
+				this.draw = function() {
+					context.drawImage(img, this.sx, this.sy, this.width, this.height, this.x, this.y, this.width, this.height);
+					this.sx += this.vx;
+					if(this.sx >= 300) this.sx = 0;
+				}
+			}
+		</script>
+	</body>
+</html>
